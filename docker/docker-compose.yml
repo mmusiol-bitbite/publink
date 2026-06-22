@@ -82,7 +82,7 @@ services:
         PROJECT: Audit.Ingestion.Worker
     env_file:
       - path: ./.env.client
-        required: true
+        required: false
     environment:
       <<: *backend-environment
       LegacyImport__PollingInterval: "01:00:00"
