@@ -1,0 +1,22 @@
+{
+  "profiles": {
+    "Audit.Query.Api": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:55290;http://localhost:55291"
+    },
+    "Audit.Query.Api (Docker dependencies)": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Local",
+        "ASPNETCORE_ENVIRONMENT": "Local"
+      },
+      "applicationUrl": "http://0.0.0.0:55291"
+    }
+  }
+}

@@ -1,0 +1,65 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+indent_style = space
+indent_size = 2
+trim_trailing_whitespace = true
+
+[*.cs]
+indent_size = 4
+dotnet_sort_system_directives_first = true
+csharp_style_namespace_declarations = file_scoped:warning
+csharp_style_var_when_type_is_apparent = true:suggestion
+csharp_style_var_for_built_in_types = false:suggestion
+
+# Server-side .NET code has no synchronization context. Requiring ConfigureAwait(false)
+# on every await adds noise without changing execution semantics.
+dotnet_diagnostic.CA2007.severity = none
+
+[src/backend/Audit.Infrastructure/Persistence/Migrations/*.cs]
+# EF owns these method signatures and generated bodies.
+dotnet_diagnostic.CA1062.severity = none
+dotnet_diagnostic.CA1861.severity = none
+dotnet_diagnostic.IDE0161.severity = none
+
+[src/backend/Audit.Infrastructure/Persistence/ArchiveMigrations/*.cs]
+# EF owns these method signatures and generated bodies.
+dotnet_diagnostic.CA1062.severity = none
+dotnet_diagnostic.CA1861.severity = none
+dotnet_diagnostic.IDE0161.severity = none
+
+[src/backend/Audit.Infrastructure/Queries/*.cs]
+# Dapper creates private row DTOs through reflection.
+dotnet_diagnostic.CA1812.severity = none
+
+[src/backend/Audit.Ingestion.Worker/LegacyImportWorker.cs]
+# A hosted-service boundary must log transient failures and keep polling.
+dotnet_diagnostic.CA1031.severity = none
+
+[src/backend/Audit.Ingestion.Worker/*.cs]
+# Microsoft DI and MassTransit instantiate these internal types through registration.
+dotnet_diagnostic.CA1812.severity = none
+
+[src/backend/Audit.Processing.Worker/{ArchiveWorkers,DatabaseInitializationWorker}.cs]
+# Hosted-service supervisors intentionally catch, log, and retry unknown provider failures.
+dotnet_diagnostic.CA1031.severity = none
+
+[src/backend/Audit.Processing.Worker/*.cs]
+# Microsoft DI and MassTransit instantiate these internal types through registration.
+dotnet_diagnostic.CA1812.severity = none
+
+[src/backend/Audit.Archival.Worker/*.cs]
+# Microsoft DI instantiates internal hosted-service types through registration.
+dotnet_diagnostic.CA1812.severity = none
+dotnet_diagnostic.CA1031.severity = none
+
+[src/backend/Audit.Query.Api/Program.cs]
+# Program remains public for WebApplicationFactory; exception/health boundaries map failures.
+dotnet_diagnostic.CA1031.severity = none
+dotnet_diagnostic.CA1515.severity = none
+
+[*.md]
+trim_trailing_whitespace = false

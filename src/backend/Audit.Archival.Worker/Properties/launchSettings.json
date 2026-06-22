@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Audit.Archival.Worker (Docker dependencies)": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Local"
+      }
+    }
+  }
+}

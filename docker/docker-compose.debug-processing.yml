@@ -1,0 +1,10 @@
+services:
+  processing-worker:
+    profiles: [debugged-locally]
+
+  ingestion-worker:
+    depends_on: !override
+      mssql:
+        condition: service_healthy
+      servicebus-ready:
+        condition: service_healthy

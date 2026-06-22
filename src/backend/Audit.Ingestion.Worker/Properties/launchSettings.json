@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Audit.Ingestion.Worker (Docker dependencies)": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Local"
+      }
+    }
+  }
+}

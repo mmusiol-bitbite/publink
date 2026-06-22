@@ -1,0 +1,3 @@
+services:
+  archival-worker:
+    profiles: [debugged-locally]

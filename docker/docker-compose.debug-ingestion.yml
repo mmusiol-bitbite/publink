@@ -1,0 +1,8 @@
+services:
+  ingestion-worker:
+    profiles: [debugged-locally]
+
+  archival-worker:
+    depends_on: !override
+      mssql:
+        condition: service_healthy

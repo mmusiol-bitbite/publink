@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+  <ItemGroup>
+    <ProjectReference Include="..\Audit.Application\Audit.Application.csproj" />
+    <ProjectReference Include="..\Audit.Contracts\Audit.Contracts.csproj" />
+    <ProjectReference Include="..\Audit.Infrastructure\Audit.Infrastructure.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MassTransit.Azure.ServiceBus.Core" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" />
+  </ItemGroup>
+</Project>
+

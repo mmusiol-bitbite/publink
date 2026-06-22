@@ -1,0 +1,16 @@
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+ARG PROJECT
+WORKDIR /workspace
+
+COPY .editorconfig ./
+COPY src/backend/Directory.Build.props src/backend/Directory.Packages.props src/backend/Publink.Audit.sln ./src/backend/
+COPY src/backend ./src/backend/
+RUN dotnet restore "src/backend/${PROJECT}/${PROJECT}.csproj"
+RUN dotnet publish "src/backend/${PROJECT}/${PROJECT}.csproj" --no-restore -c Release -o /app/publish
+
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
+ARG PROJECT
+ENV APP_DLL="${PROJECT}.dll"
+WORKDIR /app
+COPY --from=build /app/publish .
+ENTRYPOINT ["sh", "-c", "dotnet $APP_DLL"]
