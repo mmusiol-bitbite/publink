@@ -103,8 +103,8 @@ services:
         PROJECT: Audit.Archival.Worker
     environment:
       <<: *backend-environment
-      Archival__InactivityYears: "5"
-      Archival__RunInterval: "01:00:00"
+      Archival__InactivityMonths: "18"
+      Archival__RunInterval: "00:05:00"
     restart: on-failure
     depends_on:
       mssql:
