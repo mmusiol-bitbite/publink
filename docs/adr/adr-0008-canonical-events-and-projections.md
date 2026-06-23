@@ -1,8 +1,8 @@
-﻿# ADR-0005: Canonical Events And Projections
+﻿# ADR-0008: Canonical Events And Projections
 
 | Metadata | Value |
 | --- | --- |
-| Last updated | 2026-06-21 |
+| Last updated | 2026-06-23 |
 | Owner | Publink Audit data architecture |
 | Sources | Persisters, projection writer, query executors |
 | Confidence | High |
@@ -14,7 +14,7 @@ Accepted.
 
 ## Date
 
-2026-06-21.
+2026-06-19.
 
 ## Context
 

@@ -2,7 +2,7 @@
 
 | Metadata | Value |
 | --- | --- |
-| Last updated | 2026-06-21 |
+| Last updated | 2026-06-23 |
 | Owner | Publink Audit engineering |
 | Sources | Legacy importer, mapper, MassTransit config, processing consumer |
 | Confidence | High |
@@ -12,54 +12,56 @@
 
 ```mermaid
 sequenceDiagram
-    participant Worker as Ingestion worker
+    participant Worker as ingestion-worker
     participant Legacy as Legacy SQL
-    participant Bus as Service Bus
-    participant Processor as Processing worker
     participant DB as AuditReadModel
-    Worker->>DB: Read checkpoint
-    Worker->>Legacy: Read rows after checkpoint
+    participant Bus as Service Bus
+    participant Processor as processing-worker
+    Worker->>DB: Read import_checkpoints
+    Worker->>Legacy: Read audit rows after checkpoint position
     Worker->>Bus: Publish AuditEntryImportedV1
-    Worker->>DB: Save checkpoint
-    Bus->>Processor: Deliver event
-    Processor->>DB: Check Source + SourceEventId
-    Processor->>DB: Append canonical event
-    Processor->>DB: Update projections
+    Worker->>DB: Save checkpoint (at-least-once guarantee)
+    Bus->>Processor: Deliver AuditEntryImportedV1
+    Processor->>DB: Check (Source, SourceEventId) — idempotency
+    Processor->>DB: Append to audit_events
+    Processor->>DB: Update contract_search, contract_search_aliases, contract_timeline_items
     Processor->>DB: Commit
 ```
 
-The happy path shows two separate safety points: ingestion advances `import_checkpoints` only after publishing imported events, and processing commits canonical event/projection writes only after idempotency checks pass.
+The checkpoint is saved *after* publish, not before. This is the at-least-once guarantee: if the worker crashes between publish and checkpoint save, the same rows will be re-published on the next run and the processing consumer's idempotency check (`(Source, SourceEventId)`) will silently discard the duplicate. No audit event is lost; at worst it is delivered twice and deduplicated.
+
+> **Business implication (happy path).** The treasurer's timeline and search data reflect all imported changes. Freshness depends on the polling interval (configurable, default 1 hour) or a manual synchronisation request.
 
 ## Failure/Retry
 
 ```mermaid
 sequenceDiagram
     participant Bus as Service Bus
-    participant Processor as Processing worker
+    participant Processor as processing-worker
     participant DB as AuditReadModel
-    Bus->>Processor: Deliver event
+    Bus->>Processor: Deliver AuditEntryImportedV1
     Processor->>DB: Write fails
     Processor--xBus: Throw
     Bus->>Processor: Exponential retry
-    alt exhausted
-        Bus->>Bus: Move to DLQ
-    else succeeds
+    alt retry exhausted
+        Bus->>Bus: Move to DLQ (audit-projection dead-letter)
+    else retry succeeds
         Processor->>DB: Commit
     end
 ```
 
-This failure path depends on at-least-once messaging. A failed database write causes MassTransit retry/redelivery; when retry is exhausted the message goes to the broker DLQ for operational handling.
+> **Business implication (failure path).** If a message exhausts all retries and moves to the DLQ, the status endpoint (`GET /api/v1/status`) increments its DLQ counter. The operator sees that missing audit data is flagged rather than silently absent, and can investigate without guessing whether the data was ever imported.
 
 ## Duplicate
 
 ```mermaid
 sequenceDiagram
     participant Bus as Service Bus
-    participant Processor as Processing worker
+    participant Processor as processing-worker
     participant DB as AuditReadModel
-    Bus->>Processor: Redeliver event
-    Processor->>DB: Existing key found
+    Bus->>Processor: Redeliver AuditEntryImportedV1
+    Processor->>DB: (Source, SourceEventId) already exists
     Processor-->>Bus: Complete without projection update
 ```
 
-Duplicate handling is based on the unique `(Source, SourceEventId)` business key. Redelivery can happen, but the existing canonical event prevents a second timeline/search projection effect.
+> **Business implication (duplicate path).** Redelivery is safe. The treasurer's timeline and search results are unaffected by duplicate delivery because the second message produces no projection change.

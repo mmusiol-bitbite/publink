@@ -1,8 +1,8 @@
-﻿# ADR-0004: MSSQL Active And Archive Persistence
+﻿# ADR-0007: MSSQL Active And Archive Persistence
 
 | Metadata | Value |
 | --- | --- |
-| Last updated | 2026-06-21 |
+| Last updated | 2026-06-23 |
 | Owner | Publink Audit data architecture |
 | Sources | Active/archive DbContexts, Compose, query sources |
 | Confidence | High |
@@ -14,7 +14,7 @@ Accepted.
 
 ## Date
 
-2026-06-21.
+2026-06-19.
 
 ## Context
 

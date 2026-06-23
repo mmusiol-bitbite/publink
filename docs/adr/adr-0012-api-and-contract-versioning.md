@@ -1,8 +1,8 @@
-﻿# ADR-0008: API And Contract Versioning
+﻿# ADR-0012: API And Contract Versioning
 
 | Metadata | Value |
 | --- | --- |
-| Last updated | 2026-06-21 |
+| Last updated | 2026-06-23 |
 | Owner | Publink Audit API architecture |
 | Sources | Routes, contracts, export manifest |
 | Confidence | High |
@@ -14,7 +14,7 @@ Accepted.
 
 ## Date
 
-2026-06-21.
+2026-06-19.
 
 ## Context
 

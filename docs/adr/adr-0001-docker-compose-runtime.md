@@ -1,8 +1,8 @@
-﻿# ADR-0009: Docker Compose Runtime Baseline
+﻿# ADR-0001: Docker Compose Runtime Baseline
 
 | Metadata | Value |
 | --- | --- |
-| Last updated | 2026-06-21 |
+| Last updated | 2026-06-23 |
 | Owner | Publink Audit DevOps |
 | Sources | Compose, Dockerfiles, CI |
 | Confidence | High |
@@ -14,7 +14,7 @@ Accepted for local/demo.
 
 ## Date
 
-2026-06-21.
+2026-06-19.
 
 ## Context
 

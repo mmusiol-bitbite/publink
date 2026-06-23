@@ -47,9 +47,3 @@ Pop-Location
 ```
 
 Quality command: `npm run check`.
-
-## Debug Overlays
-
-Use files `docker/docker-compose.debug-*.yml` with profile `debugged-locally` to run one service in the IDE while Compose runs the rest.
-
-Reset disposable local data with `docker compose -f docker/docker-compose.yml down -v`.

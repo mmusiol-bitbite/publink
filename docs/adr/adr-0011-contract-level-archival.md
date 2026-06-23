@@ -1,8 +1,8 @@
-﻿# ADR-0006: Contract-Level Archival
+﻿# ADR-0011: Contract-Level Archival
 
 | Metadata | Value |
 | --- | --- |
-| Last updated | 2026-06-21 |
+| Last updated | 2026-06-23 |
 | Owner | Publink Audit data architecture |
 | Sources | Archive lifecycle, executor, policy |
 | Confidence | High |
@@ -14,7 +14,7 @@ Accepted.
 
 ## Date
 
-2026-06-21.
+2026-06-20.
 
 ## Context
 

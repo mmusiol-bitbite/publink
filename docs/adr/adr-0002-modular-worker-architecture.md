@@ -1,8 +1,8 @@
-﻿# ADR-0001: Modular Worker Architecture
+﻿# ADR-0002: Modular Worker Architecture
 
 | Metadata | Value |
 | --- | --- |
-| Last updated | 2026-06-21 |
+| Last updated | 2026-06-23 |
 | Owner | Publink Audit architecture |
 | Sources | Solution/projects, startup files, Docker Compose |
 | Confidence | High |
@@ -14,7 +14,7 @@ Accepted.
 
 ## Date
 
-2026-06-21.
+2026-06-19.
 
 ## Context
 

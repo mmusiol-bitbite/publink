@@ -1,8 +1,8 @@
-﻿# ADR-0010: Quality Gates
+﻿# ADR-0003: Quality Gates
 
 | Metadata | Value |
 | --- | --- |
-| Last updated | 2026-06-21 |
+| Last updated | 2026-06-23 |
 | Owner | Publink Audit engineering leads |
 | Sources | CI workflow, build props, package scripts |
 | Confidence | High |
@@ -14,7 +14,7 @@ Accepted.
 
 ## Date
 
-2026-06-21.
+2026-06-19.
 
 ## Context
 

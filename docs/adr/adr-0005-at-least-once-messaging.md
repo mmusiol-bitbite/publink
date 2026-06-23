@@ -1,8 +1,8 @@
-﻿# ADR-0003: At-Least-Once Messaging
+﻿# ADR-0005: At-Least-Once Messaging
 
 | Metadata | Value |
 | --- | --- |
-| Last updated | 2026-06-21 |
+| Last updated | 2026-06-23 |
 | Owner | Publink Audit architecture/SRE |
 | Sources | MassTransit registrations, consumers, persistence indexes |
 | Confidence | High |
@@ -14,7 +14,7 @@ Accepted.
 
 ## Date
 
-2026-06-21.
+2026-06-19.
 
 ## Context
 

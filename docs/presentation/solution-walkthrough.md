@@ -2,11 +2,17 @@
 
 | Metadata | Value |
 | --- | --- |
-| Last updated | 2026-06-21 |
+| Last updated | 2026-06-23 |
 | Owner | Publink Audit architecture / technical writing |
 | Sources | Architecture docs, ADRs and diagrams |
 | Confidence | High |
 | Related | [Executive Summary](executive-summary.md), [System Overview](../architecture/system-overview.md), [Audit Storage ERD](../diagrams/erd/audit-storage.md) |
+
+> **TL;DR**
+> - **Business problem.** A treasurer facing an RIO inspection needs to show who changed what and when on contracts. The legacy system stores audit rows but provides no explorer.
+> - **What was built.** A read-only audit explorer: .NET 10 backend (4 processes), React 19 SPA, Azure Service Bus, MSSQL active/archive stores — packaged as Docker Compose for local/demo use.
+> - **Key architectural choices.** Legacy SQL polled at-least-once into canonical events → search/timeline projections → hot/cold MSSQL split; export as verifiable ZIP; search by historical field values; DLQ visibility for operators.
+> - **Out of scope (deliberate MVP trade-offs).** Authentication/authorisation, legal evidence (WORM/signatures), production infrastructure (no CD, no Kubernetes), write-back to legacy source.
 
 This document explains the solution in the same order as the original presentation story, but as reading material. It is intended for reviewers who want to understand the business need, runtime design, data model, reliability choices and known production gaps without following slide notes.
 
@@ -70,9 +76,18 @@ The important operational distinction is that MassTransit tables are delivery re
 
 ## 9. Security Boundary
 
-The MVP includes security headers and development/runtime configuration hygiene, but it does not authenticate users or authorize data access. The demo organization ID is a deterministic local tenant context, not a security boundary.
+**This is an MVP. Authentication and authorisation are intentionally not implemented.** The recruitment brief explicitly asked for a note on what was consciously skipped — this is the most significant gap between the MVP and a production system.
 
-Production must add identity provider integration, tenant/object-level authorization, secret management, audit logging for privileged operations and a clear data-classification/retention policy.
+The MVP includes security headers and development/runtime configuration hygiene, but it does not authenticate users or authorise data access. The demo organisation ID is a deterministic local tenant context, not a security boundary — any request that reaches the API can read any contract.
+
+Production must add, at minimum:
+- Identity provider integration (e.g. Azure AD / Entra ID) with JWT validation on every API request.
+- Tenant-aware and object-level authorisation: a treasurer from organisation A must not see contracts from organisation B.
+- Audit logging for privileged operations (export, manual synchronisation).
+- Secret management (no connection strings in environment variables without rotation and vault backing).
+- A clear data-classification and retention policy.
+
+These are standard production requirements, not optional extras. The MVP omits them because they have no bearing on demonstrating the audit-history capabilities that the recruitment task asked for.
 
 ## 10. Delivery And Operations
 

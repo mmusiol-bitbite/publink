@@ -1,8 +1,8 @@
-﻿# ADR-0002: Legacy SQL Polling Anti-Corruption Layer
+﻿# ADR-0004: Legacy SQL Polling Anti-Corruption Layer
 
 | Metadata | Value |
 | --- | --- |
-| Last updated | 2026-06-21 |
+| Last updated | 2026-06-23 |
 | Owner | Publink Audit integration architecture |
 | Sources | Legacy importer, mapper, SQL reader |
 | Confidence | High for adapter; Medium for source guarantees |
@@ -14,7 +14,7 @@ Accepted.
 
 ## Date
 
-2026-06-21.
+2026-06-19.
 
 ## Context
 

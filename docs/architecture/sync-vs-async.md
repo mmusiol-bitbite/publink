@@ -6,7 +6,7 @@
 | Owner | Publink Audit architecture |
 | Sources | Query API endpoints, MassTransit registrations |
 | Confidence | High |
-| Related | [Events](../api/events.md), [ADR 0003](../adr/adr-0003-at-least-once-messaging.md) |
+| Related | [Events](../api/events.md), [ADR 0005](../adr/adr-0005-at-least-once-messaging.md) |
 
 Synchronous paths: browser to web, web to API, API/workers to MSSQL, health checks and export downloads.
 

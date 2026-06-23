@@ -32,7 +32,3 @@ Check `processing-worker` logs, synchronization status and DLQ count. Retry and 
 ## Archive Failure
 
 Archive endpoint failures should not block active search if active DB is healthy. Check `archival-worker` logs and `contract_archive_transfers` state. Production alerting is not implemented.
-
-## Smoke Test
-
-`scripts/smoke.ps1` validates readiness, manual sync, active search, archive search, active/archive separation, timeline filtering and verifiable export.
