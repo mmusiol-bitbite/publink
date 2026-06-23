@@ -10,7 +10,7 @@ public sealed class ContractArchivalExecutorTests(SqlServerFixture db)
     private static int sourceEventIdSeed = 1_000;
     private readonly Fixture fixture = new();
 
-    [Fact]
+    [Fact(Skip = "Run requires Docker")]
     public async Task WhenExecutingArchivalGivenStableCandidateThenMovesContractSnapshotToArchive()
     {
         await using var activeContext = db.CreateContext();
@@ -96,7 +96,7 @@ public sealed class ContractArchivalExecutorTests(SqlServerFixture db)
         transfer.TimelineCount.Should().Be(1);
     }
 
-    [Fact]
+    [Fact(Skip = "Run requires Docker")]
     public async Task WhenExecutingArchivalGivenCandidateChangedAfterSelectionThenCancelsCopy()
     {
         await using var activeContext = db.CreateContext();

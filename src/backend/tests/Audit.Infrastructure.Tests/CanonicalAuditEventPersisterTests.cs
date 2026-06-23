@@ -1,6 +1,5 @@
 using Audit.Application.Persistence;
 using Audit.Contracts;
-using Audit.Infrastructure.Persistence;
 using Audit.Infrastructure.Persistence.Persisters;
 
 namespace Audit.Infrastructure.Tests;
@@ -10,7 +9,7 @@ public sealed class CanonicalAuditEventPersisterTests(SqlServerFixture db)
 {
     private readonly Fixture fixture = new();
 
-    [Fact]
+    [Fact(Skip = "Run requires Docker")]
     public async Task WhenAppendingAuditEventGivenFirstInsertThenReturnsAppended()
     {
         await using var context = db.CreateContext();
@@ -24,7 +23,7 @@ public sealed class CanonicalAuditEventPersisterTests(SqlServerFixture db)
         context.AuditEvents.Should().ContainSingle(e => e.EventId == message.EventId);
     }
 
-    [Fact]
+    [Fact(Skip = "Run requires Docker")]
     public async Task WhenAppendingAuditEventGivenSameSourceEventIdThenReturnsDuplicate()
     {
         await using var context = db.CreateContext();
@@ -42,7 +41,7 @@ public sealed class CanonicalAuditEventPersisterTests(SqlServerFixture db)
         duplicate.Should().Be(AppendAuditEventResult.Duplicate);
     }
 
-    [Fact]
+    [Fact(Skip = "Run requires Docker")]
     public async Task WhenAppendingAuditEventGivenDifferentSourceEventIdsThenAllowsAllEvents()
     {
         await using var context = db.CreateContext();
