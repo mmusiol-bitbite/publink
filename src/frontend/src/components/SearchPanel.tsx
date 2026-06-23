@@ -10,7 +10,10 @@ type Props = Readonly<{ explorer: ContractExplorer; storage: StorageView; langua
 
 export function SearchPanel({ explorer, storage, language }: Props) {
   const { t } = useTranslation()
-  const [expandedFor, setExpandedFor] = useState<{ id: string | null; storage: StorageView } | null>(null)
+  const [expandedFor, setExpandedFor] = useState<{
+    id: string | null
+    storage: StorageView
+  } | null>(null)
 
   const results = useMemo(() => explorer.search.data ?? [], [explorer.search.data])
   const selectedId = explorer.selected?.contractId ?? null
