@@ -3,9 +3,8 @@ using Audit.Infrastructure.Archiving.Execution;
 using Audit.Infrastructure.Archiving.Reactivation;
 using Audit.Infrastructure.Archiving.Transfers;
 using Audit.Infrastructure.Persistence.Contexts;
-using Microsoft.EntityFrameworkCore;
-
 using Audit.Infrastructure.Persistence.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Audit.Infrastructure.Archiving.Lifecycle;
 

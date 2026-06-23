@@ -9,34 +9,34 @@ namespace Audit.Infrastructure.Persistence.Migrations;
 /// <inheritdoc />
 public partial class AddLegacySynchronizationRequests : Migration
 {
-        /// <inheritdoc />
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.CreateTable(
-                name: "legacy_synchronization_requests",
-                columns: table => new
-                {
-                    Source = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    CorrelationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    RequestedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    CompletedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_legacy_synchronization_requests", x => x.Source);
-                });
+    /// <inheritdoc />
+    protected override void Up(MigrationBuilder migrationBuilder)
+    {
+        migrationBuilder.CreateTable(
+            name: "legacy_synchronization_requests",
+            columns: table => new
+            {
+                Source = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                CorrelationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                RequestedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                CompletedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+            },
+            constraints: table =>
+            {
+                table.PrimaryKey("PK_legacy_synchronization_requests", x => x.Source);
+            });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_legacy_synchronization_requests_CorrelationId",
-                table: "legacy_synchronization_requests",
-                column: "CorrelationId",
-                unique: true);
-        }
+        migrationBuilder.CreateIndex(
+            name: "IX_legacy_synchronization_requests_CorrelationId",
+            table: "legacy_synchronization_requests",
+            column: "CorrelationId",
+            unique: true);
+    }
 
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropTable(
-                name: "legacy_synchronization_requests");
-        }
+    /// <inheritdoc />
+    protected override void Down(MigrationBuilder migrationBuilder)
+    {
+        migrationBuilder.DropTable(
+            name: "legacy_synchronization_requests");
+    }
 }

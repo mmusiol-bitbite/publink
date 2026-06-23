@@ -6,7 +6,7 @@ namespace Audit.Infrastructure.Queries.ReadSources;
 
 // Raw SQL is used because contract read queries involve LIKE searches across multiple columns
 // and parameterised table names (active vs. archived views). See ContractReadSql for definitions.
-public sealed class ActiveContractReadSource(SqlConnectionFactory connections): IContractReadSource
+public sealed class ActiveContractReadSource(SqlConnectionFactory connections) : IContractReadSource
 {
     public ContractAuditDataSource DataSource => ContractAuditDataSource.Active;
 

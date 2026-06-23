@@ -1,6 +1,6 @@
+using System.Diagnostics.CodeAnalysis;
 using Audit.Infrastructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics.CodeAnalysis;
 using Testcontainers.MsSql;
 
 namespace Audit.Infrastructure.Tests;

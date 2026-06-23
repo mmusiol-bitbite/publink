@@ -1,5 +1,5 @@
 import type { FormEventHandler } from 'react'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { StorageView } from '../api'
 import type { ContractExplorer } from '../hooks/useContractExplorer'
@@ -10,24 +10,22 @@ type Props = Readonly<{ explorer: ContractExplorer; storage: StorageView; langua
 
 export function SearchPanel({ explorer, storage, language }: Props) {
   const { t } = useTranslation()
-  const [collapsedContractId, setCollapsedContractId] = useState<string | null>(null)
+  const [expandedFor, setExpandedFor] = useState<{ id: string | null; storage: StorageView } | null>(null)
 
-  const results = explorer.search.data ?? []
-  const collapsedResult = collapsedContractId
-    ? results.find((contract) => contract.contractId === collapsedContractId)
-    : undefined
-  const isCollapsed = Boolean(
-    collapsedResult && explorer.selected?.contractId === collapsedContractId,
-  )
+  const results = useMemo(() => explorer.search.data ?? [], [explorer.search.data])
+  const selectedId = explorer.selected?.contractId ?? null
+  const isExpandedByUser =
+    expandedFor !== null && expandedFor.id === selectedId && expandedFor.storage === storage
+  const collapsedResult =
+    selectedId && !isExpandedByUser
+      ? results.find((contract) => contract.contractId === selectedId)
+      : undefined
+  const isCollapsed = Boolean(collapsedResult)
   const visibleResults = useMemo(
     () => (isCollapsed && collapsedResult ? [collapsedResult] : results),
     [collapsedResult, isCollapsed, results],
   )
   const canShowMoreResults = isCollapsed && results.length > 1
-
-  useEffect(() => {
-    setCollapsedContractId(explorer.selected?.contractId ?? null)
-  }, [explorer.selected?.contractId, storage])
 
   const submit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault()
@@ -69,7 +67,6 @@ export function SearchPanel({ explorer, storage, language }: Props) {
             className={`contract-result ${explorer.selected?.contractId === contract.contractId ? 'selected' : ''}`}
             onClick={() => {
               explorer.setSelected(contract)
-              setCollapsedContractId(contract.contractId)
             }}
           >
             <span className="contract-number">
@@ -91,7 +88,7 @@ export function SearchPanel({ explorer, storage, language }: Props) {
           <button
             className="search-more-button secondary-button"
             type="button"
-            onClick={() => setCollapsedContractId(null)}
+            onClick={() => setExpandedFor({ id: selectedId, storage })}
           >
             {t('search.more')}
           </button>

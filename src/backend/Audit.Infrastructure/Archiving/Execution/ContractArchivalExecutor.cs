@@ -4,9 +4,8 @@ using Audit.Infrastructure.Archiving.Lifecycle;
 using Audit.Infrastructure.Archiving.Queries;
 using Audit.Infrastructure.Archiving.Snapshots;
 using Audit.Infrastructure.Persistence.Contexts;
-using Microsoft.EntityFrameworkCore;
-
 using Audit.Infrastructure.Persistence.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Audit.Infrastructure.Archiving.Execution;
 

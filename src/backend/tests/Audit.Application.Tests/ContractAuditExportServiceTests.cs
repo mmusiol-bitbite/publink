@@ -18,7 +18,7 @@ public sealed class ContractAuditExportServiceTests
     {
         fixture = new();
         ContractId = fixture.Create<Guid>();
-        GeneratedAt=fixture.Create<DateTimeOffset>();
+        GeneratedAt = fixture.Create<DateTimeOffset>();
     }
 
     [Fact]

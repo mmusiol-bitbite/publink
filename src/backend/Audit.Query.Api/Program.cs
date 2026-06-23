@@ -1,6 +1,6 @@
-using Audit.Query.Api.Bootstrap;
 using Audit.Infrastructure.Persistence;
 using Audit.Infrastructure.Persistence.Core;
+using Audit.Query.Api.Bootstrap;
 
 var builder = WebApplication.CreateBuilder(args);
 

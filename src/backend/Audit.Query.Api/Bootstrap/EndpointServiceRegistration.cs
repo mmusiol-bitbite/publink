@@ -1,9 +1,9 @@
 using Audit.Application.Exports;
 using Audit.Application.Queries;
-using Audit.Query.Api.Endpoints.Requests;
 using Audit.Infrastructure.Queries;
-using Audit.Query.Api.Endpoints.Validation;
 using Audit.Infrastructure.Queries.ReadSources;
+using Audit.Query.Api.Endpoints.Requests;
+using Audit.Query.Api.Endpoints.Validation;
 
 namespace Audit.Query.Api.Bootstrap;
 

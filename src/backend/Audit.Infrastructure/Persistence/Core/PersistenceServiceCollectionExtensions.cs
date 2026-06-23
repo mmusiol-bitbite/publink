@@ -1,7 +1,7 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Audit.Infrastructure.Persistence.Contexts;
 using Audit.Infrastructure.Persistence.Initialization;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Audit.Infrastructure.Persistence.Core;
 

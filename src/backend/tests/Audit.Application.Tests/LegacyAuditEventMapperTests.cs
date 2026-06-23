@@ -18,7 +18,7 @@ public sealed class LegacyAuditEventMapperTests
     {
         var mapper = CreateMapper();
 
-        var recordId= fixture.Create<int>();
+        var recordId = fixture.Create<int>();
         var record = CreateRecord(recordId);
 
         var first = mapper.Map(record);

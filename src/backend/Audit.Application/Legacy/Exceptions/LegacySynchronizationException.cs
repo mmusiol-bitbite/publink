@@ -1,7 +1,7 @@
 namespace Audit.Application.Legacy;
 
-public abstract  class LegacySynchronizationException : Exception
-{ 
+public abstract class LegacySynchronizationException : Exception
+{
     protected LegacySynchronizationException()
     {
     }
@@ -9,9 +9,9 @@ public abstract  class LegacySynchronizationException : Exception
         : base(message)
     {
     }
-protected LegacySynchronizationException(string message, Exception innerException)
-    : base(message, innerException)
-{
-}
+    protected LegacySynchronizationException(string message, Exception innerException)
+        : base(message, innerException)
+    {
+    }
 
 }

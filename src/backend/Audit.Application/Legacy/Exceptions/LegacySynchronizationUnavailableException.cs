@@ -1,4 +1,5 @@
 namespace Audit.Application.Legacy;
+
 public sealed class LegacySynchronizationUnavailableException : LegacySynchronizationException
 {
     public LegacySynchronizationUnavailableException()
